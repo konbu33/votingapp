@@ -13,12 +13,16 @@ class SignInPage extends StatelessWidget {
     Widget emailField() {
       return TextFormField(
         controller: emailController,
+        decoration: const InputDecoration(labelText: "メールアドレス"),
+        autofocus: true,
       );
     }
 
     Widget passwordField() {
       return TextFormField(
         controller: passwordController,
+        decoration: const InputDecoration(labelText: "パスワード"),
+        obscureText: true,
       );
     }
 
@@ -28,33 +32,50 @@ class SignInPage extends StatelessWidget {
             emailController.text.trim(), passwordController.text.trim());
       }
 
-      return ElevatedButton(onPressed: onPressed, child: const Text("submit"));
+      return Container(
+        constraints: BoxConstraints(minWidth: double.infinity),
+        child: ElevatedButton(
+          onPressed: onPressed,
+          child: const Text("ログイン"),
+          style: ElevatedButton.styleFrom(
+            shape: StadiumBorder(),
+            padding: EdgeInsets.symmetric(vertical: 15),
+          ),
+        ),
+      );
+    }
+
+    Widget signUpButton() {
+      void onPressed() {
+        Navigator.of(context).pushNamed('/signuppage');
+      }
+
+      return TextButton(
+          onPressed: onPressed,
+          child: const Text(
+            "新規登録",
+            style: TextStyle(color: Colors.white),
+          ));
     }
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("SignIn Page"),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pushNamed('/signuppage');
-            },
-            child: Text(
-              "Sign Up",
-              style: TextStyle(color: Colors.white),
-            ),
-          ),
-        ],
+        title: const Text("ログイン"),
+        actions: [signUpButton()],
       ),
-      body: Column(
-        children: [
-          emailField(),
-          passwordField(),
-          const SizedBox(
-            height: 50,
-          ),
-          submitField(),
-        ],
+      body: Container(
+        padding: const EdgeInsets.fromLTRB(40, 0, 40, 0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            emailField(),
+            passwordField(),
+            const SizedBox(
+              height: 50,
+            ),
+            submitField(),
+          ],
+        ),
       ),
     );
   }

@@ -15,6 +15,7 @@ class NameModel {
         "createAt": FieldValue.serverTimestamp(),
         "addUser": uid,
         "name": name,
+        "nameYomi": "",
       };
       CollectionReference names = _firestore.collection('names');
       await names.add(data);
@@ -22,7 +23,7 @@ class NameModel {
     } on FirebaseException catch (e) {
       return "addName Error : ${e.message}";
     } catch (e) {
-      return "addName Error : ${e}";
+      return "addName Error : ${e.toString()}";
     }
   }
 
@@ -35,25 +36,32 @@ class NameModel {
     } on FirebaseException catch (e) {
       return "delName Error : ${e.message}";
     } catch (e) {
-      return "delName Error : ${e}";
+      return "delName Error : ${e.toString()}";
     }
   }
 
-  Future<String> getName(String docId) async {
+  Future<Map<String, dynamic>> getName(String docId) async {
     try {
       DocumentReference name = _firestore.collection('names').doc(docId);
 
       final data = await name.get();
-      return data.get("name");
-      return "editName Success.";
+      final resData = <String, dynamic>{
+        "result": "getName Success.",
+        "data": {
+          "name": data.get("name"),
+          "nameYomi": data.get("nameYomi"),
+        }
+      };
+      return resData;
     } on FirebaseException catch (e) {
-      return "editName Error : ${e.message}";
+      return {"result": "getName Error : ${e.message}"};
     } catch (e) {
-      return "editName Error : ${e}";
+      return {"result": "getName Error : ${e.toString()}"};
     }
   }
 
-  Future<String> updateName(String docId, String newName, String uid) async {
+  Future<String> updateName(
+      String docId, String newName, String newNameYomi, String uid) async {
     try {
       DocumentReference name = _firestore.collection('names').doc(docId);
 
@@ -61,6 +69,7 @@ class NameModel {
         "updateAt": FieldValue.serverTimestamp(),
         "updateUser": uid,
         "name": newName,
+        "nameYomi": newNameYomi,
       };
 
       await name.update(data);

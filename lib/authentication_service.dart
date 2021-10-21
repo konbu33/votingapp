@@ -11,11 +11,11 @@ class AuthenticationService {
     try {
       await _firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
-      return "Signed In.";
+      return "Sign In Success.";
     } on FirebaseAuthException catch (e) {
-      return "FirebaseAuthException : ${e.message}";
+      return "Sign In FirebaseAuthException : ${e.message}";
     } catch (e) {
-      return "Signed In Error.";
+      return "Sign In Error : ${e.toString()}";
     }
   }
 
@@ -23,22 +23,22 @@ class AuthenticationService {
     try {
       await _firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: password);
-      return "Signed Up.";
+      return "Sign Up Success.";
     } on FirebaseAuthException catch (e) {
-      return "FirebaseAuthException : ${e.message}";
+      return "Sign Up FirebaseAuthException : ${e.message}";
     } catch (e) {
-      return "Signed Up Error.";
+      return "Sign Up Error : ${e.toString()}";
     }
   }
 
   Future<String> signOut() async {
     try {
       await _firebaseAuth.signOut();
-      return "Signed Out.";
+      return "Sign Out Success.";
     } on FirebaseAuthException catch (e) {
-      return "Sign Out Error : ${e.message}";
+      return "Sign Out FirebaseAuthException : ${e.message}";
     } catch (e) {
-      return "Sign Out Error.";
+      return "Sign Out Error : ${e.toString()}";
     }
   }
 }

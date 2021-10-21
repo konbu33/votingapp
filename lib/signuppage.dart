@@ -16,12 +16,16 @@ class SignUpPage extends StatelessWidget {
     Widget emailField() {
       return TextFormField(
         controller: emailController,
+        decoration: const InputDecoration(labelText: "メールアドレス"),
+        autofocus: true,
       );
     }
 
     Widget passwordField() {
       return TextFormField(
         controller: passwordController,
+        decoration: const InputDecoration(labelText: "パスワード"),
+        obscureText: true,
       );
     }
 
@@ -30,46 +34,51 @@ class SignUpPage extends StatelessWidget {
         final firebaseuser = context.read<User?>();
         final String? uid = firebaseuser?.uid;
         final String? email = firebaseuser?.email;
-        final res = await context.read<UserModel>().addUser(uid, email);
-        print("res : $res");
+        print("uid : $uid, email : $email");
+
+        if (uid != null) {
+          final res = await context.read<UserModel>().addUser(uid, email);
+          print("res addUser : $res");
+        }
       }
 
       Future<void> onPressed() async {
         final res = await context.read<AuthenticationService>().signUp(
             emailController.text.trim(), passwordController.text.trim());
-        print("res: $res");
+        print("res signUp: $res");
 
         addUser();
         Navigator.of(context).pop();
-
-        // final firebaseuser = context.watch<User?>();
-        // final firebaseuser =
-        // context.watch<AuthenticationService>().authStateChanges;
-        // print("firebaseuser sign up: $firebaseuser");
-
-        // if (firebaseuser != null) {
-        // Navigator.of(context).pushNamed('votingpage');
-        // }
       }
 
-      return ElevatedButton(onPressed: onPressed, child: const Text("submit"));
+      return Container(
+        constraints: BoxConstraints(minWidth: double.infinity),
+        child: ElevatedButton(
+          onPressed: onPressed,
+          child: const Text("新規登録"),
+          style: ElevatedButton.styleFrom(
+            shape: StadiumBorder(),
+            padding: EdgeInsets.symmetric(vertical: 15),
+          ),
+        ),
+      );
     }
 
-    // context.watch<User?>();
-
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("SignUp Page"),
-      ),
-      body: Column(
-        children: [
-          emailField(),
-          passwordField(),
-          const SizedBox(
-            height: 50,
-          ),
-          submitField(),
-        ],
+      appBar: AppBar(title: const Text("新規登録")),
+      body: Container(
+        padding: const EdgeInsets.fromLTRB(40, 0, 40, 0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            emailField(),
+            passwordField(),
+            const SizedBox(
+              height: 50,
+            ),
+            submitField(),
+          ],
+        ),
       ),
     );
   }

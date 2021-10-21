@@ -3,7 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
-import 'package:votingapp/authentication_service.dart';
+import 'authentication_service.dart';
 import 'signinpage.dart';
 import 'signuppage.dart';
 import 'votingpage.dart';
@@ -13,11 +13,11 @@ import 'namemodel.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(const App());
+  runApp(const MyApp());
 }
 
-class App extends StatelessWidget {
-  const App({Key? key}) : super(key: key);
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,43 +35,33 @@ class App extends StatelessWidget {
             initialData: null),
       ],
       child: MaterialApp(
-        home: const AuthWrapper(
-            beforeSignedInPage: SignInPage(), afterSignedInPage: VotingPage()),
-        routes: <String, WidgetBuilder>{
-          "/votingpage": (context) => const AuthWrapper(
-              beforeSignedInPage: SignInPage(),
-              afterSignedInPage: VotingPage()),
-          "/signinpage": (context) => const AuthWrapper(
-              beforeSignedInPage: SignInPage(),
-              afterSignedInPage: VotingPage()),
-          // "/signuppage": (context) => const SignUpPage(),
-          "/signuppage": (context) => const AuthWrapper(
-              beforeSignedInPage: SignUpPage(),
-              afterSignedInPage: VotingPage()),
-        },
-      ),
+          title: "Voting App",
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+            visualDensity: VisualDensity.adaptivePlatformDensity,
+          ),
+          home: AuthWrapper(),
+          routes: <String, WidgetBuilder>{
+            "/votingpage": (context) => VotingPage(),
+            "/signinpage": (context) => SignInPage(),
+            "/signuppage": (context) => SignUpPage(),
+          }),
     );
   }
 }
 
 class AuthWrapper extends StatelessWidget {
-  const AuthWrapper(
-      {Key? key,
-      required this.beforeSignedInPage,
-      required this.afterSignedInPage})
-      : super(key: key);
-
-  final Widget beforeSignedInPage;
-  final Widget afterSignedInPage;
+  const AuthWrapper({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // final firebaseuser = context.read<User?>();
-    // context.watch<User?>();
     final firebaseuser = context.watch<User?>();
+    print("firebaseuser: $firebaseuser");
 
-    print('firebaseuser: $firebaseuser');
-    if (firebaseuser != null) return afterSignedInPage;
-    return beforeSignedInPage;
+    if (firebaseuser != null) {
+      return const VotingPage();
+    }
+    return const SignInPage();
   }
 }

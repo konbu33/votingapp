@@ -4,30 +4,23 @@ class UserModel {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   Future<String> addUser(String? uid, String? email) async {
-    // CollectionReference users = _firestore.collection("users");
-    DocumentReference user = _firestore.collection("users").doc(uid);
-
-    var data = {
-      "createAt": FieldValue.serverTimestamp(),
-      "uid": uid,
-      "email": email,
-    };
-
     try {
+      var data = {
+        "createAt": FieldValue.serverTimestamp(),
+        "uid": uid,
+        "email": email,
+        "firstName": "",
+        "lastName": "",
+        "nickname": "",
+      };
+
+      DocumentReference user = _firestore.collection("users").doc(uid);
       await user.set(data);
-      return "User Add Success.";
+      return "addUser Success";
+    } on FirebaseException catch (e) {
+      return "addUser Error : ${e.message}";
     } catch (e) {
-      return "Firestore User Add Error.";
-    }
-  }
-
-  Future<String> getUsers() async {
-    CollectionReference users = _firestore.collection("users");
-    try {
-      // await users.get();
-      return "getUser Success.";
-    } catch (e) {
-      return "getUser Error.";
+      return "addUser Error";
     }
   }
 }
