@@ -111,52 +111,67 @@ class VotingPage extends StatelessWidget {
     //     });
 
     Widget nameField() {
-      TextEditingController nameController = TextEditingController();
+      // TextEditingController nameController = TextEditingController();
+
       return Container(
         height: MediaQuery.of(context).size.height * 0.08,
-        child: Stack(
-          alignment: AlignmentDirectional(1, -8),
-          children: [
-            TextFormField(
-              controller: nameController,
-              style: TextStyle(color: Colors.white, fontSize: 18),
-              decoration: const InputDecoration(
-                labelText: "名前候補を追加",
-                labelStyle: TextStyle(color: Colors.white),
-                enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white)),
-                focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white)),
-              ),
-            ),
-            Container(
-              // color: Colors.yellow,
-              child: ElevatedButton(
-                onPressed: () async {
-                  String uid = context.read<User?>()!.uid;
-                  print("uid: $uid, name : ${nameController.text}");
-                  final res = await context
-                      .read<NameModel>()
-                      .addName(uid, nameController.text);
-                  nameController.clear();
-                  // print("res addName : $res");
-                },
-                child: const Icon(Icons.add, color: Colors.white),
-                style: ElevatedButton.styleFrom(
-                  minimumSize: Size(55, 55),
-                  shape: CircleBorder(
-                    side: BorderSide(
-                        color: Colors.white,
-                        width: 3.0,
-                        style: BorderStyle.solid),
-                  ),
-                  elevation: 3,
-                ),
-              ),
-            ),
-          ],
+        child: TextFormField(
+          controller: context.read<NameModel>().newNameController,
+          style: TextStyle(color: Colors.white, fontSize: 18),
+          decoration: const InputDecoration(
+            labelText: "名前候補を追加",
+            labelStyle: TextStyle(color: Colors.white),
+            enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.white)),
+            focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.white)),
+          ),
         ),
       );
+
+      //   child: Stack(
+      //     alignment: AlignmentDirectional(1, -8),
+      //     children: [
+      //       TextFormField(
+      //         controller: nameController,
+      //         style: TextStyle(color: Colors.white, fontSize: 18),
+      //         decoration: const InputDecoration(
+      //           labelText: "名前候補を追加",
+      //           labelStyle: TextStyle(color: Colors.white),
+      //           enabledBorder: UnderlineInputBorder(
+      //               borderSide: BorderSide(color: Colors.white)),
+      //           focusedBorder: UnderlineInputBorder(
+      //               borderSide: BorderSide(color: Colors.white)),
+      //         ),
+      //       ),
+      //       Container(
+      //         // color: Colors.yellow,
+      //         child: ElevatedButton(
+      //           onPressed: () async {
+      //             String uid = context.read<User?>()!.uid;
+      //             print("uid: $uid, name : ${nameController.text}");
+      //             final res = await context
+      //                 .read<NameModel>()
+      //                 .addName(uid, nameController.text);
+      //             nameController.clear();
+      //             // print("res addName : $res");
+      //           },
+      //           child: const Icon(Icons.add, color: Colors.white),
+      //           style: ElevatedButton.styleFrom(
+      //             minimumSize: Size(55, 55),
+      //             shape: CircleBorder(
+      //               side: BorderSide(
+      //                   color: Colors.white,
+      //                   width: 3.0,
+      //                   style: BorderStyle.solid),
+      //             ),
+      //             elevation: 3,
+      //           ),
+      //         ),
+      //       ),
+      //     ],
+      //   ),
+      // );
     }
 
     return Scaffold(
@@ -182,20 +197,26 @@ class VotingPage extends StatelessWidget {
           ),
         ),
       ),
-      // floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () {},
-      //   child: Icon(Icons.add),
-      //   // backgroundColor: Theme.of(context).colorScheme.secondary,
-      // ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          String uid = context.read<User?>()!.uid;
+          String newName = context.read<NameModel>().newNameController.text;
+          print("uid : ${uid}, newName : ${newName}");
+          context.read<NameModel>().addName(uid, newName);
+          context.read<NameModel>().newNameController.clear();
+        },
+        child: Icon(Icons.add),
+        // backgroundColor: Theme.of(context).colorScheme.secondary,
+      ),
       bottomNavigationBar: BottomAppBar(
-        // notchMargin: 6.0,
-        // shape: AutomaticNotchedShape(
-        // RoundedRectangleBorder(),
-        // StadiumBorder(
-        // side: BorderSide(),
-        // ),
-        // ),u
+        notchMargin: 6.0,
+        shape: AutomaticNotchedShape(
+          RoundedRectangleBorder(),
+          StadiumBorder(
+            side: BorderSide(),
+          ),
+        ),
         color: Theme.of(context).primaryColor,
         child: Container(
             padding: EdgeInsets.fromLTRB(20, 15, 20, 0),

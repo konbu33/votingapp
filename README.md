@@ -1,16 +1,17 @@
-# votingapp
+# 概要
 
-A new Flutter project.
+本アプリは、子供の名前候補を登録して、人気投票できるようにすることで、子供の名前の決定を支援するためのアプリです。
 
-## Getting Started
+# 使用方法
 
-This project is a starting point for a Flutter application.
+子供の名前候補など、アプリで利用するデータの格納先として、Firebase を利用します。
+そのため、事前に Firebase でプロジェクトを作成し、本アプリと連携する必要があります。
 
-A few resources to get you started if this is your first Flutter project:
+1. 下記ファイルを配置します。ただし、※1 は、xcode を開いてファイルを削除、追加しないと認識されません。Finder から配置しても認識されません。
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+   - ios/Runner/GoogleService-Info.plist ※1
+   - android/app/google-services.json
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+2. Android Studio、Visual Studio Code で開き、ios, android のエミュレータを指定して、デバッグ実行します。
+
+以上

@@ -1,10 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
 
 class NameModel {
   NameModel(this._firestore);
 
   final FirebaseFirestore _firestore;
+
+  TextEditingController newNameController = TextEditingController();
+
+  // String newName = "init";
+  // set setNewName(String newName) => _newName = newName;
+  // String get getNewName => _newName;
 
   Stream<QuerySnapshot> get getNames =>
       _firestore.collection('names').snapshots();
