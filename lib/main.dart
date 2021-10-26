@@ -3,12 +3,14 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
-import 'authentication_service.dart';
+import 'package:votingapp/model/votinghistorymodel.dart';
+import 'model/authentication_service.dart';
 import 'signinpage.dart';
 import 'signuppage.dart';
-import 'votingpage.dart';
-import 'usermodel.dart';
-import 'namemodel.dart';
+import 'votingpage/votingpage.dart';
+import 'model/usermodel.dart';
+import 'model/namemodel.dart';
+import 'votingpage/recreatevotelist.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,11 +30,24 @@ class MyApp extends StatelessWidget {
             create: (context) =>
                 context.read<AuthenticationService>().authStateChanges,
             initialData: null),
-        Provider(create: (_) => UserModel()),
+        ChangeNotifierProvider(create: (_) => UserModel()),
         Provider(create: (_) => NameModel(FirebaseFirestore.instance)),
         StreamProvider(
             create: (_) => context.read<NameModel>().getNames,
             initialData: null),
+        ChangeNotifierProvider(create: (_) => VotingHistoryModel()),
+        StreamProvider(
+            create: (context) =>
+                context.read<VotingHistoryModel>().getVotingHistory,
+            initialData: null),
+        FutureProvider(
+            create: (context) => context.read<UserModel>().getUsers(),
+            initialData: null),
+        Provider(create: (_) => ReCreateVoteList()),
+        // Provider(create: (_) => ReCreateVoteList(VotingHistoryModel())),
+        // Provider(
+        //     create: (context) =>
+        //         ReCreateVoteList(context.read<VotingHistoryModel>())),
       ],
       child: MaterialApp(
           title: "Voting App",
@@ -41,7 +56,7 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.blue,
             visualDensity: VisualDensity.adaptivePlatformDensity,
           ),
-          home: AuthWrapper(),
+          home: const AuthWrapper(),
           routes: <String, WidgetBuilder>{
             "/votingpage": (context) => VotingPage(),
             "/signinpage": (context) => SignInPage(),
