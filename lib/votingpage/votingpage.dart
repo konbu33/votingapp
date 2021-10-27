@@ -8,8 +8,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'signoutbutton.dart';
 import 'namelistview.dart';
 import 'namefield.dart';
-import 'ztemp_showcurrentvote.dart';
-import 'ztemp_showuserlist.dart';
 import 'recreatevotelist.dart';
 
 class VotingPage extends StatelessWidget {
@@ -35,8 +33,6 @@ class VotingPage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // Flexible(child: ShowCurrentVote()),
-              // Flexible(child: ShowUserList()),
               Flexible(child: NameListView()),
             ],
           ),
