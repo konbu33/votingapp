@@ -14,45 +14,6 @@ class SelectRank extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    /*
-    void reCreateVoteList() async {
-      final res1 = await context.read<UserModel>().getUsers();
-
-      List<Map<String, dynamic>> _userList = await context
-          .read<UserModel>()
-          .getLatestUserList
-          .map((e) => e.userModelInfo)
-          .toList();
-
-      List<String> _uidList =
-          _userList.map((e) => e["uid"].toString()).toList();
-
-      context.read<VotingHistoryModel>().clearCurrentVoteList();
-
-      for (var uid in _uidList) {
-        await context
-            .read<VotingHistoryModel>()
-            .reCreateCurrentVoteList(uid, "1");
-        await context
-            .read<VotingHistoryModel>()
-            .reCreateCurrentVoteList(uid, "2");
-        await context
-            .read<VotingHistoryModel>()
-            .reCreateCurrentVoteList(uid, "3");
-      }
-      print("zzz1 : ${_userList.toString()}");
-      print("zzz2 : ${_uidList.toString()}");
-
-      print(
-          "zzz3 : ${context.read<VotingHistoryModel>().currentVoteList.length}");
-      context.read<VotingHistoryModel>().currentVoteList.forEach((element) {
-        print("currentVoteList : ${element.voteInfo.toString()}");
-      });
-    }
-    */
-
-    // context.read<ReCreateVoteList>().reCreateVoteList();
-
     return ListTile(
       leading: DropdownButton(
         items: const [

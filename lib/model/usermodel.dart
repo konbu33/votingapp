@@ -13,7 +13,6 @@ class UserModelInfo {
 class UserModel with ChangeNotifier {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  // List<UserModelInfo> userList = [UserModelInfo({})];
   List<UserModelInfo> userList = [];
 
   List<UserModelInfo> get getLatestUserList => userList;
@@ -59,7 +58,6 @@ class UserModel with ChangeNotifier {
 
       userList = _userList;
 
-      // notifyListeners();
       return "getUsers Success.";
     } on FirebaseException catch (e) {
       return "getUsers Error : ${e.message}";

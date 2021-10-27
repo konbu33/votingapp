@@ -21,10 +21,6 @@ class NameListView extends StatelessWidget {
           .map((e) => e.voteInfo)
           .toList();
 
-      // print("_currentVoteList aaa : ${_currentVoteList.toString()}");
-
-      String imageAsset =
-          "https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTh8fHBlb3BsZXxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60";
       final a = _currentVoteList
           .where((element) => element["nameId"] == nameId)
           .toList();
@@ -51,9 +47,7 @@ class NameListView extends StatelessWidget {
               color: Colors.green,
               icon: Icons.edit,
               onTap: () {
-                // print("edit onTap: ${snapshot.id}");
                 showModalBottomSheet(
-                  // barrierColor: Colors.white.withOpacity(0.9),
                   backgroundColor: Colors.white.withOpacity(0),
                   context: context,
                   isScrollControlled: true,
@@ -78,10 +72,8 @@ class NameListView extends StatelessWidget {
               color: Colors.orange,
               icon: Icons.delete,
               onTap: () async {
-                // print("delete onTap: ${snapshot.id}");
                 final res =
                     await context.read<NameModel>().delName(snapshot.id);
-                // print("res : ${res}");
               },
             ),
           ],
@@ -107,8 +99,6 @@ class NameListView extends StatelessWidget {
       }
 
       return StreamBuilder(
-          // stream: FirebaseFirestore.instance.collection('names').snapshots(),
-          // stream: context.watch<NameModel>().getNames,
           stream: context.read<NameModel>().getNames,
           builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (snapshot.connectionState != ConnectionState.active) {

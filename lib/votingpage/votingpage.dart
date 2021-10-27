@@ -28,8 +28,6 @@ class VotingPage extends StatelessWidget {
       body: Center(
         child: Container(
           alignment: Alignment.center,
-          // constraints:
-          // BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.9),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -67,50 +65,3 @@ class VotingPage extends StatelessWidget {
     );
   }
 }
-
-
-
-
-      //   child: Stack(
-      //     alignment: AlignmentDirectional(1, -8),
-      //     children: [
-      //       TextFormField(
-      //         controller: nameController,
-      //         style: TextStyle(color: Colors.white, fontSize: 18),
-      //         decoration: const InputDecoration(
-      //           labelText: "名前候補を追加",
-      //           labelStyle: TextStyle(color: Colors.white),
-      //           enabledBorder: UnderlineInputBorder(
-      //               borderSide: BorderSide(color: Colors.white)),
-      //           focusedBorder: UnderlineInputBorder(
-      //               borderSide: BorderSide(color: Colors.white)),
-      //         ),
-      //       ),
-      //       Container(
-      //         // color: Colors.yellow,
-      //         child: ElevatedButton(
-      //           onPressed: () async {
-      //             String uid = context.read<User?>()!.uid;
-      //             print("uid: $uid, name : ${nameController.text}");
-      //             final res = await context
-      //                 .read<NameModel>()
-      //                 .addName(uid, nameController.text);
-      //             nameController.clear();
-      //             // print("res addName : $res");
-      //           },
-      //           child: const Icon(Icons.add, color: Colors.white),
-      //           style: ElevatedButton.styleFrom(
-      //             minimumSize: Size(55, 55),
-      //             shape: CircleBorder(
-      //               side: BorderSide(
-      //                   color: Colors.white,
-      //                   width: 3.0,
-      //                   style: BorderStyle.solid),
-      //             ),
-      //             elevation: 3,
-      //           ),
-      //         ),
-      //       ),
-      //     ],
-      //   ),
-      // );
