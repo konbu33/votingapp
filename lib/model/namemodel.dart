@@ -9,10 +9,6 @@ class NameModel {
 
   TextEditingController newNameController = TextEditingController();
 
-  // String newName = "init";
-  // set setNewName(String newName) => _newName = newName;
-  // String get getNewName => _newName;
-
   Stream<QuerySnapshot> get getNames =>
       _firestore.collection('names').snapshots();
 
@@ -80,7 +76,6 @@ class NameModel {
       };
 
       await name.update(data);
-      // await name.set(data);
       return "editName Success.";
     } on FirebaseException catch (e) {
       return "editName Error : ${e.message}";

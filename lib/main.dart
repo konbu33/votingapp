@@ -44,10 +44,6 @@ class MyApp extends StatelessWidget {
             create: (context) => context.read<UserModel>().getUsers(),
             initialData: null),
         Provider(create: (_) => ReCreateVoteList()),
-        // Provider(create: (_) => ReCreateVoteList(VotingHistoryModel())),
-        // Provider(
-        //     create: (context) =>
-        //         ReCreateVoteList(context.read<VotingHistoryModel>())),
       ],
       child: MaterialApp(
           title: "Voting App",

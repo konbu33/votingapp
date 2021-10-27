@@ -9,7 +9,6 @@ class SignOutButton extends StatelessWidget {
   Widget build(BuildContext context) {
     void onPressed() {
       context.read<AuthenticationService>().signOut();
-      // print("Sign Out.");
     }
 
     return TextButton(

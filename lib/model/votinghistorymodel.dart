@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -24,7 +23,6 @@ class VotingHistoryModel with ChangeNotifier {
 
   void clearCurrentVoteList() {
     currentVoteList = [];
-    // notifyListeners();
   }
 
   List<Vote> get getCurrentVoteList => currentVoteList;
@@ -37,7 +35,6 @@ class VotingHistoryModel with ChangeNotifier {
   String get getSelectRankNum => _selectRankNum;
   set setSelectRankNum(String num) {
     _selectRankNum = num;
-    // notifyListeners();
   }
 
   Future<String> addVotingHisotry(
@@ -72,20 +69,12 @@ class VotingHistoryModel with ChangeNotifier {
 
     queryDocumentSnapshotList.forEach((element) {
       Map<String, dynamic> data = element.data() as Map<String, dynamic>;
-      // currentVoteList.add(Vote.latest(data));
       setCurrentVoteList = Vote.latest(data);
-      // notifyListeners();
     });
   }
 
   Stream<Vote?> getCurrentVote(String uid, String rankNum) {
     StreamController<Vote> _voteController = StreamController<Vote>();
-
-    // String uid = '0GekrpJFODRYDCvkVB3CkXErSel2';
-    // String uid = 'SvgYxYIFAebwG7BrtDyyLMt95KT2';
-    // String rankNum = '1'
-    // String rankNum = '2'
-    // String rankNum = '3'
 
     Stream<QuerySnapshot> querySnapshot = votingHistory
         .where('uid', isEqualTo: uid)
@@ -103,8 +92,6 @@ class VotingHistoryModel with ChangeNotifier {
     });
 
     _voteController.stream.listen((event) {
-      // notifyListeners();
-
       print("count ${count.toString()}: ${event.voteInfo.toString()}");
       if (event.voteInfo["createAt"] == {}) {
       } else if (event.voteInfo["createAt"] == null) {
@@ -120,7 +107,6 @@ class VotingHistoryModel with ChangeNotifier {
 
   Stream<QuerySnapshot> get getVotingHistory => votingHistory
       .where('uid', isEqualTo: '0GekrpJFODRYDCvkVB3CkXErSel2')
-      // .where('uid', isEqualTo: 'SvgYxYIFAebwG7BrtDyyLMt95KT2')
       .where('selectRankNum', isEqualTo: '2')
       .orderBy('createAt', descending: true)
       .limit(1)
