@@ -49,3 +49,9 @@ app.*.map.json
 android/app/google-services.json
 ios/Runner/GoogleService-Info.plist
 web/env.js
+
+# Test 
+test/failures
+test/ignore
+.vscode/launch.json.old
+lib/cat.dart
