@@ -36,7 +36,11 @@ class SignInPage extends StatelessWidget {
         constraints: BoxConstraints(minWidth: double.infinity),
         child: ElevatedButton(
           onPressed: onPressed,
-          child: const Text("ログイン"),
+          child: const Text(
+            "ログイン",
+            // style: TextStyle(fontFamily: 'NotoSansJP'),
+            style: TextStyle(fontFamily: 'NotoSerifJP'),
+          ),
           style: ElevatedButton.styleFrom(
             shape: StadiumBorder(),
             padding: EdgeInsets.symmetric(vertical: 15),
@@ -54,7 +58,11 @@ class SignInPage extends StatelessWidget {
           onPressed: onPressed,
           child: const Text(
             "新規登録",
-            style: TextStyle(color: Colors.white),
+            style: TextStyle(
+              color: Colors.white,
+              // fontFamily: 'Hiragino Kaku Gothic ProN',
+              // fontFamily: 'NotoSansJP',
+            ),
           ));
     }
 

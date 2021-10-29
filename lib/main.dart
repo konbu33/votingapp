@@ -49,8 +49,11 @@ class MyApp extends StatelessWidget {
           title: "Voting App",
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
-            primarySwatch: Colors.blue,
+            primarySwatch: Colors.green,
             visualDensity: VisualDensity.adaptivePlatformDensity,
+            fontFamily: 'NotoSansJP',
+            // fontFamily: 'NotoSerifJP',
+            // fontFamily: 'Hiragino Kaku Gothic ProN',
           ),
           home: const AuthWrapper(),
           routes: <String, WidgetBuilder>{
